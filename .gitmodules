@@ -1,0 +1,12 @@
+[submodule "libraries/core_lib"]
+	path = libraries/core_lib
+	url = https://github.com/Uiowa-Applied-Topology/tanglenomicon_core_libraries.git
+[submodule "libraries/argparse"]
+	path = libraries/argparse
+	url = https://github.com/cofyc/argparse.git
+[submodule "libraries/unity"]
+	path = libraries/unity
+	url = https://github.com/ThrowTheSwitch/Unity.git
+[submodule "libraries/cmock"]
+	path = libraries/cmock
+	url = https://github.com/ThrowTheSwitch/CMock.git

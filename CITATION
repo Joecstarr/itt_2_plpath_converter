@@ -1,0 +1,16 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: ''
+message: >-
+  If you use this software or design, please cite it as below.
+type: software
+authors:
+  - family-names: Starr
+    given-names: Joseph
+doi: 
+repository-code: 'https://github.com/joecstarr/'
+abstract: >-
+license: GPL-3.0-or-later
+date-released: '2026-04-24'

@@ -1,0 +1,93 @@
+repos:
+    - repo: local
+      hooks:
+          - id: ruff
+            name: ruff
+            language: system
+            entry: ruff format --check
+            files:
+                glob:
+                    - "**/*.py"
+          - id: tombi
+            name: tombi
+            language: system
+            entry: tombi format --check
+            files:
+                glob:
+                    - "**/*.toml"
+          - id: docs
+            name: docs
+            language: system
+            entry: rumdl check
+            exclude:
+                glob:
+                    - ".github/**/*.*"
+            files:
+                glob:
+                    - "**/*.md"
+          - id: valgrind
+            name: valgrind
+            language: system
+            entry: just check-valgrind
+            pass_filenames: false
+            exclude:
+                glob:
+                    - "libraries/**/*.*"
+            files:
+                glob:
+                    - "**/*.c"
+                    - "**/*.h"
+                    - "**/*.hpp"
+                    - "**/*.cpp"
+          - id: uncrustify
+            name: uncrustify
+            language: system
+            entry: uncrustify -c .uncrustify.cfg --check
+            exclude:
+                glob:
+                    - "libraries/**/*.*"
+            files:
+                glob:
+                    - "**/*.c"
+                    - "**/*.h"
+                    - "**/*.hpp"
+                    - "**/*.cpp"
+          - id: cmake-format
+            name: cmake-format
+            language: system
+            entry: cmake-format --check
+            exclude:
+                glob:
+                    - "libraries/**/*.*"
+            files:
+                glob:
+                    - "**/CMakeLists.txt"
+                    - "libraries/CMakeLists.txt"
+          - id: doxygen
+            name: doxygen
+            language: system
+            entry: just check-doxygen
+            pass_filenames: false
+            exclude:
+                glob:
+                    - "libraries/**/*.*"
+            files:
+                glob:
+                    - "**/*.c"
+                    - "**/*.h"
+                    - "**/*.cpp"
+                    - "**/*.hpp"
+          - id: check-cppcheck
+            name: cppcheck
+            language: system
+            entry: just check-cppcheck
+            pass_filenames: false
+            exclude:
+                glob:
+                    - "libraries/**/*.*"
+            files:
+                glob:
+                    - "**/*.c"
+                    - "**/*.h"
+                    - "**/*.cpp"
+                    - "**/*.hpp"
