@@ -13,6 +13,7 @@ bootstrap:
       uv pip install "git+https://github.com/Joecstarr/mkdocs-bibtex"; \
       uv pip install "git+https://github.com/Joecstarr/mkdocs-author-plugin"; \
       uv pip install "git+https://github.com/Joecstarr/markdown-gfm-admonition"; \
+      uv pip install "git+https://github.com/Joecstarr/mkdocs_include_dir_to_nav"; \
     fi
 
 refresh-sub: 
@@ -251,7 +252,6 @@ do-uncrustify:
 do-tombi:
     tombi format source
     tombi format misc
-    tombi format languages
     tombi format docs 
     
 
