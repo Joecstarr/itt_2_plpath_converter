@@ -1,0 +1,23 @@
+[[test_0002]]
+wptt = "i"
+
+[[test_0002]]
+wptt = "i0"
+
+[[test_0002]]
+wptt = "i("
+
+[[test_0002]]
+wptt = "i["
+
+[[test_0002]]
+wptt = "x"
+
+[[test_0002]]
+wptt = "x[1]"
+
+[[test_0002]]
+wptt = "y[1]"
+
+[[test_0002]]
+wptt = "z[1]"
