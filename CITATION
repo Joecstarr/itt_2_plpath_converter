@@ -2,15 +2,18 @@
 # Visit https://bit.ly/cffinit to generate yours today!
 
 cff-version: 1.2.0
-title: ''
+title: 'Convert Identity Tangle Tree (ITT) to Piecewise Linear (PL) Path'
 message: >-
-  If you use this software or design, please cite it as below.
+    If you use this software or design, please cite it as below.
 type: software
 authors:
   - family-names: Starr
     given-names: Joseph
-doi: 
-repository-code: 'https://github.com/joecstarr/'
+doi: 10.5281/zenodo.19955234
+repository-code: 'https://github.com/joecstarr/itt_2_plpath_converter'
 abstract: >-
+    The Identity Tangle Tree (ITT) to Piecewise Linear (PL) Path is a runnable wrapper 
+    for the Tanglenomicon Core Libraries. Specifically, the ITT runnable takes command 
+    line input in the form of an ITT and output a PL path realizing that ITT in $\R^3$.
 license: GPL-3.0-or-later
 date-released: '2026-04-24'
