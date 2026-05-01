@@ -1,16 +1,13 @@
-# CMakeList.txt : CMake project for tanglenomicon, include source and define
-# project specific logic here.
-#
 cmake_minimum_required(VERSION 3.12)
 
 project(
-  tanglenomicon
+  itt_2_plpath
   LANGUAGES C CXX
   VERSION 0.0.1)
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
-set(CMAKE_C_STANDARD 90)
+set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 11)
 
 set(CMAKE_CXX_STANDARD_REQUIRED On)
@@ -26,6 +23,7 @@ if(NOT CMAKE_BUILD_TYPE STREQUAL "Emscripten")
   set(ENV{VIRTUAL_ENV} "${CMAKE_CURRENT_SOURCE_DIR}/.venv")
   find_package(Python REQUIRED)
   find_program(CYTHON "cython")
+  find_package(Pytest REQUIRED)
 endif(NOT CMAKE_BUILD_TYPE STREQUAL "Emscripten")
 
 # ##############################################################################
@@ -63,6 +61,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Emscripten")
   add_compile_definitions(ENABLE_EMSCRIPTEN)
 endif(CMAKE_BUILD_TYPE STREQUAL "Emscripten")
 
+add_compile_definitions(UTIL_TANG_DEFS_MAX_CROSSINGNUM=40)
 # ##############################################################################
 # End Compiler Defines
 # ##############################################################################

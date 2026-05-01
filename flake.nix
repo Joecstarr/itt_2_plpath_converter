@@ -64,8 +64,6 @@
               zip
               zlib
               janet
-              wine64
-              winetricks
               valgrind
               rumdl
             ]
@@ -77,7 +75,6 @@
 
           shellHook = ''
             prek install -f
-            export WINEPREFIX=$(pwd)/.wine/
             just bootstrap
             source .venv/bin/activate
             echo done!

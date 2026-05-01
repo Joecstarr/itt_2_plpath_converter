@@ -125,20 +125,11 @@ Files and directories shall be lower case, where capital is not required by a to
 │   ├──  <unit>
 │   │   ├──  <>.c
 │   │   ├──  <>.h
+│   │   ├──  test_<>.py
 │   │   └──  CMakeLists.txt
 │   ├──  CMakeLists.txt
+│   ├──  test_<>.py
 │   └──  main.c
-├──  test
-│   ├──  <integration>
-│   │   ├──  CMakeLists.txt
-│   │   ├──  test_<>.c
-│   │   └──  test_<>.h
-│   ├──  <unit>
-│   │   ├──  CMakeLists.txt
-│   │   ├──  test_<>.c
-│   │   └──  test_<>.h
-│   ├──  CMakeLists.txt
-│   └──  test_main.c
 ├──  .editorconfig
 ├── 󰊢 .gitignore
 ├── 󰊢 .gitmodules
@@ -160,8 +151,7 @@ Files and directories shall be lower case, where capital is not required by a to
 
 ### Directories of Interest
 
-- Source: This directory contains the C libraries for the tool.
-- Test: This directory contains the test code for the tool.
+- Source: This directory contains the source and test code for the tool.
 - Docs: This directory contains the high level documentation for the tool.
 
 ### Define a Unit
