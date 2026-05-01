@@ -33,6 +33,23 @@ dependencies = [
   "tqdm>=4.67.3",
 ]
 
+[tool.ruff.lint]
+select = [
+  # pycodestyle
+  "E",
+  # Pyflakes
+  "F",
+  # pyupgrade
+  "UP",
+  # flake8-bugbear
+  "B",
+  # flake8-simplify
+  "SIM",
+  # isort
+  "I",
+]
+ignore = ["UP022"]
+
 [tool.uv.sources]
 mkdocs-bibtex = { git = "https://github.com/Joecstarr/mkdocs-bibtex" }
 mkdocs-author-plugin = { git = "https://github.com/Joecstarr/mkdocs-author-plugin" }

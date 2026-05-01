@@ -1,6 +1,5 @@
 import os
 import subprocess
-from difflib import Differ
 from pathlib import Path
 
 import parametrize_from_file as pff
