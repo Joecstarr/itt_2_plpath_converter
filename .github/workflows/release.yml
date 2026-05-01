@@ -1,6 +1,10 @@
 name: Create release
 
 on:
+    pull_request:
+        branches: ["main"]
+
+    # Allows you to run this workflow manually from the Actions tab
     workflow_dispatch:
         inputs:
             branch:
@@ -42,12 +46,12 @@ jobs:
             - name: Build
               run: |
                   nix develop --command \
-                      just build_all
+                    just build_all
 
             - name: Check
               run: |
                   nix develop --command \
-                      just check
+                    just check
 
             - name: Test
               run: |
@@ -60,11 +64,13 @@ jobs:
                     just html
 
             - name: Upload artifact
+              if: startsWith(github.ref, 'refs/tags/') && inputs.do_release
               uses: actions/upload-pages-artifact@v3
               with:
                   path: ./.build/docs
 
             - name: Deploy to GitHub Pages
+              if: startsWith(github.ref, 'refs/tags/') && inputs.do_release
               uses: actions/deploy-pages@v4
 
             - name: Release
@@ -91,14 +97,11 @@ jobs:
                   buckets: extras
                   apps: uutils-coreutils
 
-            - name: Install python requirements
-              run: pip install -r requirements.txt
-
             - name: Install lizard
-              run: pip install lizard
+              run: pip install uv
 
-            - name: Install xxd and findutils
-              run: choco install xxd
+            - name: Install python requirements
+              run: uv sync
 
             - name: Build cmake
               shell: cmd
@@ -108,10 +111,9 @@ jobs:
               shell: cmd
               run: cmake --build .\.build\Release -j
 
-            - name: run tests
+            - name: Test
               shell: cmd
-              run: |
-                  python .\misc\test\win_runner.py
+              run: ctest -C Release
 
             - name: Release
               if: startsWith(github.ref, 'refs/tags/') && inputs.do_release

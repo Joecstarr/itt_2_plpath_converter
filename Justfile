@@ -39,13 +39,6 @@ build_win : bootstrap
     cmake -DCMAKE_TOOLCHAIN_FILE=./misc/cmake/mingw-toolchain.cmake -B{{buildDir_win}} -DCMAKE_BUILD_TYPE={{buildTrgt_win}} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_COLOR_DIAGNOSTICS=TRUE -G Ninja && \
     cmake --build {{buildDir_win}} -j 
 
-
-# Test windows 
-test_wine: bootstrap
-    source .venv/bin/activate && \
-    cd {{buildDir_win}} && \
-    find . -iname "test*.exe" -exec  sh -c 'wine64 $0 || kill $PPID' \{\} \;
-
 ##################################################################################################
 ####### Release ##################################################################################
 ##################################################################################################

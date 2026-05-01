@@ -64,11 +64,8 @@
               zip
               zlib
               janet
-              wine64
-              winetricks
               valgrind
               rumdl
-              vscode-extensions.vadimcn.vscode-lldb
             ]
             ++ builtins.attrValues ccPkgs;
 
@@ -76,12 +73,8 @@
             pkgsCross.mingw.windows.pthreads
           ];
 
-          CODELLDB_BIN_PATH = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb";
-          CODELLDB_LIB_PATH = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/lldb/lib/liblldb.dylib";
-
           shellHook = ''
             prek install -f
-            export WINEPREFIX=$(pwd)/.wine/
             just bootstrap
             source .venv/bin/activate
             echo done!
