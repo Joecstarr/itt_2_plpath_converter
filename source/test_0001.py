@@ -8,10 +8,7 @@ import parametrize_from_file as pff
 @pff.parametrize
 def test_0001(wptt, pl):
 
-    if os.name == "nt":
-        exepath = Path.cwd() / "i2pp_cli.exe"
-    else:
-        exepath = Path.cwd() / "i2pp_cli"
+    exepath = Path.cwd() / "itt2plp.exe" if os.name == "nt" else Path.cwd() / "itt2plp"
 
     assert exepath.is_file()
 

@@ -1,10 +1,7 @@
-# CMakeList.txt : CMake project for tanglenomicon, include source and define
-# project specific logic here.
-#
 cmake_minimum_required(VERSION 3.12)
 
 project(
-  tanglenomicon
+  itt_2_plpath
   LANGUAGES C CXX
   VERSION 0.0.1)
 

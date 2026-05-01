@@ -50,7 +50,7 @@ not useful.
 - Good, can batch process files with notations.  
 - Good, inherently reproducible.
 - Bad, hard to chain in a pipeline  
-- Bad, redundant with `cat <> | i2pp_cli`
+- Bad, redundant with `cat <> | itt2plp`
 
 ### `-n`
 

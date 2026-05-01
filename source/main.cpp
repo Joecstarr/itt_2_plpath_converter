@@ -63,8 +63,8 @@ int count_char(const char *str, char c)
 }
 
 static const char *const usages[] = {
-    "i2pp_cli",
-    "i2pp_cli [options] ",
+    "itt2plp ",
+    "itt2plp -n <wptt>",
     NULL,
 };
 

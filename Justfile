@@ -187,10 +187,10 @@ check-cppcheck: build_rel
 ##################################################################################################
 
 check-valgrind: build_dbg 
-    cat ./.build/Debug/toml_parser_test_data/valid_all_prod_types.toml | valgrind --error-exitcode=1 --leak-check=full --trace-children=yes --track-origins=yes --suppressions=.valgrind.supp ./.build/Debug/i2pp_cli -n "i[0 0]"
+    cat ./.build/Debug/toml_parser_test_data/valid_all_prod_types.toml | valgrind --error-exitcode=1 --leak-check=full --trace-children=yes --track-origins=yes --suppressions=.valgrind.supp ./.build/Debug/itt2plp -n "i[0 0]"
 
 check-valgrind_rel: build_rel 
-    cat ./.build/Release/toml_parser_test_data/valid_all_prod_types.toml | valgrind --error-exitcode=1 --leak-check=full --trace-children=yes --track-origins=yes --suppressions=.valgrind.supp ./.build/Release/i2pp_cli -n "i[0 0]"
+    cat ./.build/Release/toml_parser_test_data/valid_all_prod_types.toml | valgrind --error-exitcode=1 --leak-check=full --trace-children=yes --track-origins=yes --suppressions=.valgrind.supp ./.build/Release/itt2plp -n "i[0 0]"
 
 
 ##################################################################################################
@@ -248,6 +248,6 @@ check:
 ##################################################################################################
 
 # Run all formatting.  
-format: do-rumdl do-cmakeformat do-uncrustify do-tombi
+format: do-ruff do-rumdl do-cmakeformat do-uncrustify do-tombi
     @echo "🚀 Formated the files"
     exit 0

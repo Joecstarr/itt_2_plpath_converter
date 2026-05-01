@@ -80,8 +80,7 @@ jobs:
                   generate_release_notes: true
                   make_latest: true
                   files: |
-                      .build/Release/pdgl_cli 
-                      .build/Emscripten/pdgl_wasm.js
+                      .build/Release/itt2plp
 
     build-windows:
         runs-on: windows-latest
@@ -91,33 +90,30 @@ jobs:
                   submodules: recursive
                   fetch-depth: 0 # GitHub Actions example:
 
-            - uses: MinoruSekine/setup-scoop@v4.0.2
-              name: Install scoop with uutils-coreutils
-              with:
-                  buckets: extras
-                  apps: uutils-coreutils
-
-            - name: Install lizard
+            - name: Install uv
+              shell: cmd
               run: pip install uv
 
             - name: Install python requirements
-              run: uv sync
+              run: |
+                  uv sync
+                  uv pip install lizard
 
             - name: Build cmake
               shell: cmd
-              run: cmake -B.\.build\Release -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_COLOR_DIAGNOSTICS=TRUE -G Ninja
+              run: .venv\Scripts\Activate.bat && cmake -B.\.build\Release -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_COLOR_DIAGNOSTICS=TRUE -G Ninja -DPytest_ROOT=.\.venv\share\Pytest\cmake
 
             - name: Build source
               shell: cmd
-              run: cmake --build .\.build\Release -j
+              run: .venv\Scripts\Activate.bat && cmake --build .\.build\Release -j
 
             - name: Test
               shell: cmd
-              run: ctest -C Release
+              run: .venv\Scripts\Activate.bat && cd .build\Release && ctest
 
             - name: Release
               if: startsWith(github.ref, 'refs/tags/') && inputs.do_release
               uses: softprops/action-gh-release@v2
               with:
                   files: |
-                      .build/Release/pdgl_cli.exe
+                      .build/Release/itt2plp.exe

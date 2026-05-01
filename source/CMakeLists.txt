@@ -1,10 +1,10 @@
 if(NOT CMAKE_BUILD_TYPE STREQUAL "Emscripten")
-  add_executable(i2pp_cli main.cpp)
+  add_executable(itt2plp main.cpp)
 
-  target_link_libraries(i2pp_cli argparse_lib comp_i2pp_buf_size
+  target_link_libraries(itt2plp argparse_lib comp_i2pp_buf_size
                         comp_itt_to_path notation_wptt notation_plpath)
 
-  target_include_directories(i2pp_cli PUBLIC .)
+  target_include_directories(itt2plp PUBLIC .)
   file(GLOB_RECURSE test_files "${CMAKE_CURRENT_SOURCE_DIR}/test_*.*")
 
   pytest_discover_tests(
@@ -14,7 +14,7 @@ if(NOT CMAKE_BUILD_TYPE STREQUAL "Emscripten")
     TEST_PATHS
     ${CMAKE_CURRENT_SOURCE_DIR}
     DEPENDS
-    i2pp_cli
+    itt2plp
     ${test_files}
     DISCOVERY_EXTRA_ARGS
     "--capture=no")
