@@ -9,11 +9,7 @@ bootstrap:
       git submodule deinit -f . ;\
       git submodule update --init --recursive ; \
       prek install -f -c .pre-commit-config.yaml ; \
-      uv venv --python 3.13 && uv pip install -r requirements.txt && \
-      uv pip install "git+https://github.com/Joecstarr/mkdocs-bibtex"; \
-      uv pip install "git+https://github.com/Joecstarr/mkdocs-author-plugin"; \
-      uv pip install "git+https://github.com/Joecstarr/markdown-gfm-admonition"; \
-      uv pip install "git+https://github.com/Joecstarr/mkdocs_include_dir_to_nav"; \
+      uv venv --python 3.13 && uv sync ;\
     fi
 
 refresh-sub: 
@@ -99,42 +95,11 @@ test_dbg: bootstrap
     ctest -C {{buildTrgt_dbg}}
 
 ##################################################################################################
-####### Emscripten  ##############################################################################
-##################################################################################################
-
-buildTrgt_em := "Emscripten"
-buildDir_em := "./.build/Emscripten"
-
-
-# Clean the Emscripten build dir
-clean_em: bootstrap
-    if test -e {{buildDir_em}}; then \
-        rip {{buildDir_em}}; \
-    fi
-
-# Build for Emscripten 
-build_em : bootstrap
-    source .venv/bin/activate && \
-    emcmake cmake -B{{buildDir_em}} -DCMAKE_BUILD_TYPE={{buildTrgt_em}} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_COLOR_DIAGNOSTICS=TRUE -G Ninja && \
-    cmake --build {{buildDir_em}}
-
-# Launch Emscripten test server 
-[working-directory: '.build/Emscripten/pdgl_wasm_test_data']
-launch_em_server:  
-    @echo "🚀 Check port 1313"
-    source ../../../.venv/bin/activate && \
-    python -m reloadserver 1313
-
-# Run Emscripten testing
-test_em: build_em launch_em_server
-    exit 0
-
-##################################################################################################
 ####### Build All ################################################################################
 ##################################################################################################
 
 # Build all versions
-build_all: build_em build_dbg build_rel build_win
+build_all: build_dbg build_rel build_win
     @echo "🚀 Build everything"
     exit 0
 
@@ -229,10 +194,11 @@ check-cppcheck: build_rel
 ##################################################################################################
 
 check-valgrind: build_dbg 
-    cat ./.build/Debug/toml_parser_test_data/valid_all_prod_types.toml | valgrind --error-exitcode=1 --leak-check=full --trace-children=yes --track-origins=yes --suppressions=.valgrind.supp ./.build/Debug/pdgl_cli -c 1
+    cat ./.build/Debug/toml_parser_test_data/valid_all_prod_types.toml | valgrind --error-exitcode=1 --leak-check=full --trace-children=yes --track-origins=yes --suppressions=.valgrind.supp ./.build/Debug/i2pp_cli -n "i[0 0]"
 
 check-valgrind_rel: build_rel 
-    cat ./.build/Release/toml_parser_test_data/valid_all_prod_types.toml | valgrind --error-exitcode=1 --leak-check=full --trace-children=yes --track-origins=yes --suppressions=.valgrind.supp ./.build/Release/pdgl_cli -c 1
+    cat ./.build/Release/toml_parser_test_data/valid_all_prod_types.toml | valgrind --error-exitcode=1 --leak-check=full --trace-children=yes --track-origins=yes --suppressions=.valgrind.supp ./.build/Release/i2pp_cli -n "i[0 0]"
+
 
 ##################################################################################################
 ####### uncrustify format ########################################################################
@@ -253,6 +219,7 @@ do-tombi:
     tombi format source
     tombi format misc
     tombi format docs 
+    tombi format ./pyproject.toml 
     
 
 ##################################################################################################

@@ -68,12 +68,16 @@
               winetricks
               valgrind
               rumdl
+              vscode-extensions.vadimcn.vscode-lldb
             ]
             ++ builtins.attrValues ccPkgs;
 
           CCFLAGS = builtins.map (a: "-L ${a}/lib") [
             pkgsCross.mingw.windows.pthreads
           ];
+
+          CODELLDB_BIN_PATH = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb";
+          CODELLDB_LIB_PATH = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/lldb/lib/liblldb.dylib";
 
           shellHook = ''
             prek install -f
