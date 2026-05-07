@@ -85,7 +85,7 @@ build_dbg : bootstrap
 test_dbg: bootstrap
     source .venv/bin/activate && \
     cd {{buildDir_dbg}} && \
-    ctest -C {{buildTrgt_dbg}}
+    ctest -C {{buildTrgt_dbg}} --output-on-failure
 
 ##################################################################################################
 ####### Build All ################################################################################

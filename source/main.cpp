@@ -107,17 +107,7 @@ int main(int argc, const char **argv)
     if (NULL == note_wptt_c)
     {
         std::string note_wptt;
-
-        /*@@@NOTE: I'm not sure if this is really a great way to do this. It requires feeding of an
-         * EOF symbol. */
-        std::string temp;
-        std::getline(std::cin, temp);
-        note_wptt += temp;
-        while (!std::cin.eof())
-        {
-            std::getline(std::cin, temp);
-            note_wptt += "\n" + temp;
-        }
+        std::getline(std::cin, note_wptt);
         note_wptt_c = new char[note_wptt.size() + 1];
         strcpy(note_wptt_c, note_wptt.c_str());
     }
@@ -136,7 +126,7 @@ int main(int argc, const char **argv)
     /* If the size is zero something has gone wrong*/
     if (0 == wptt_buff_size)
     {
-        std::cout << "Not and identity tangle tree" << std::endl;
+        std::cout << "Something has gone wrong with buffer size computation." << std::endl;
         return 1;
     }
 
@@ -157,7 +147,7 @@ int main(int argc, const char **argv)
         (NOTE_WPTT_V4_LABEL_I != wptt.label) ||
         (NULL == wptt.root))
     {
-        std::cout << "Not and identity tangle tree" << std::endl;
+        std::cout << "Not and identity tangle tree: " << ret_note << std::endl;
         return 1;
     }
 
@@ -174,7 +164,11 @@ int main(int argc, const char **argv)
         (COMP_DEFS_CONFIG_SUCCESS != ret_compute) ||
         (NULL == res_i2pp))
     {
-        std::cout << "Error in PL buffer sizing" << std::endl;
+        std::cout << "Error in PL buffer sizing:\nConfig: "
+                  << ret_config
+                  << "\nCompute: "
+                  << ret_compute
+                  << std::endl;
         return 1;
     }
 
@@ -207,7 +201,11 @@ int main(int argc, const char **argv)
     if ((COMP_DEFS_CONFIG_SUCCESS != ret_config) ||
         (COMP_DEFS_CONFIG_SUCCESS != ret_compute))
     {
-        std::cout << "Error in PL buffer sizing" << std::endl;
+        std::cout << "Error in itt path conversion:\nConfig: "
+                  << ret_config
+                  << "\nCompute: "
+                  << ret_compute
+                  << std::endl;
         return 1;
     }
 
@@ -219,13 +217,14 @@ int main(int argc, const char **argv)
 
     if (NOTE_DEFS_DECODE_SUCCESS != ret_note)
     {
-        std::cout << "Not and identity tangle tree" << std::endl;
+        std::cout << "Error in creating PL path: " << ret_note << std::endl;
         return 1;
     }
 
-    std::cout << plout;
+    printf("%s", plout);
 
     std::cout.flush();
+    fflush(stdout);
 
     delete [] plout;
     delete [] wptt_nodes;
